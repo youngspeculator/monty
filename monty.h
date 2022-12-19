@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <ctype.h>
 
@@ -35,6 +37,22 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ *struct bus_s - variables; args, file, line content
+ *@arg: value
+ *@file: pointer to monty file
+ *@content: line content
+ *@lifi: flag change stack <> queue
+ *Description: carries values through the program
+ */
+typedef struct bus_s
+{
+	char *arg;
+	FILE *file;
+	char *content;
+	int lifi;
+} bus_t;
+
 /* Define global variable */
 extern char *push_data;
 char *push_data;
@@ -43,8 +61,8 @@ char *push_data;
 char *parse_line(char *line);
 void (*get_op_func(char *s))(stack_t **stack, unsigned int line_number);
 void read_file(char *filename, stack_t **stack);
-void _push(stack_t **stack, unsigned int line_number);
-void _pall(stack_t **stack, unsigned int line_number);
+void _push(stack_t **head, unsigned int line_number);
+void _pall(stack_t **head, unsigned int line_number);
 void _pint(stack_t **stack, unsigned int line_number);
 void _pop(stack_t **stack, unsigned int line_number);
 void _swap(stack_t **stack, unsigned int line_number);
@@ -57,5 +75,15 @@ void free_dlistint(stack_t *head);
 int delete_dnodeint_at_index(stack_t **head, unsigned int index);
 void error_exit(stack_t **stack);
 int isnumber(char *str);
+
+/* Error messages */
+int usage_error(void);
+int malloc_error(void);
+int f_open_error(char *filename);
+int unknown_op_error(char *opcode, unsigned int line_number);
+int no_int_error(unsigned int line_number);
+int pop_error(unsigned int line_number);
+int short_stack_error(unsigned int line_number, char *op);
+int div_error(unsigned int line_number);l
 
 #endif /* MONTY_H */
