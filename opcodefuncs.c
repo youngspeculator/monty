@@ -34,12 +34,12 @@ void _push(stack_t **stack, unsigned int line_number)
 
 	if (deflt == 1)
 	{
-	add_dnodeint_end(stack, push_arg);
+		add_dnodeint_end(stack, push_arg);
 	}
 
 	if (deflt == 0)
 	{
-		add_dnodeint(stack, push_arg);
+		add_dnodeint_end(stack, push_arg);
 	}
 	free(new);
 }
@@ -91,10 +91,10 @@ void _pop(stack_t **stack, unsigned int line_number)
 {
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_numver);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		error_exit(stack);
 	}
-	delete_dnodeint_at(stack, 0);
+	delete_dnodeint_at_index(stack, 0);
 }
 
 /**
