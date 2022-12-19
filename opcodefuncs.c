@@ -2,64 +2,65 @@
 
 /**
 *_push - pushes an element to the stack_s
-*@stack: points to linked list stack_t
+*@head: stack head
 *@line_number: line number which opcode occurs on
 *Return: void
 */
 void _push(stack_t **stack, unsigned int line_number)
 {
-	int deflt = 0;
-	stack_t *new;
-	char *arg;
-	int push_arg;
+	int n, j = o, flag = 0;
 
-	push_arg = 0;
-	new = malloc(sizeof(stack_t));
-	if (!new)
+	if (bus.arg)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		error_exit(stack);
-	}
-
-	arg = strtok(NULL, "\n ");
-	if (isnumber(arg) == 1 && arg != NULL)
-	{
-		push_arg = atoi(arg);
+		if (bus.arg[0] == '-')
+			j++;
+		for (; bus.arg[j] != '\0'; j++)
+		{
+			if (bus.arg[j] > 57 || bus.arg[j] < 48)
+				flag = 1;
+		}
+		if (flag == 1)
+		{
+			fprintf(stderr, "L%d: usage: push integr\n", counter);
+			fclose(bus.file);
+			free_stack(*head);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		error_exit(stack);
+		fprintf(stderr, "L%d: usage: push integer\n", counter);
+			fclose(bus.file);
+			free(bus.content);
+			free_stack(*head);
+			exit(EXIT_FAILURE);
 	}
-
-	if (deflt == 1)
-	{
-		add_dnodeint_end(stack, push_arg);
-	}
-
-	if (deflt == 0)
-	{
-		add_dnodeint_end(stack, push_arg);
-	}
-	free(new);
+	n = atoi(bus.arg)	;
+	if (bus.lifi == 0)
+		addnode(head, n);
+	else
+		addqueue(head, n);
 }
 
 /**
 *_pall - prints all the values on the stack, starting from the top of the stack
-*@stack: points to linked list stack_t
+*@head: head of stack
 *@line_number: line number opcode occurs on
 *Return: void
 */
 void _pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *temp = *stack;
-
+	stack_t *h;
 	(void)line_number;
 
-	while (temp != NULL)
+	h = *head;
+	if (h == NULL)
+		return;
+
+	while (h)
 	{
 		printf("%d\n", temp->n);
-		temp = temp->next;
+		h = h->next;
 	}
 }
 
