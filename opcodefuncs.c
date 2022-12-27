@@ -1,12 +1,12 @@
 #include "monty.h"
 
 /**
-*_push - pushes an element to the stack_s
-*@head: stack head
-*@line_number: line number which opcode occurs on
-*Return: void
+* f_push - pushes an element to the stack_s
+* @head: stack head
+* @number: line number which opcode occurs on
+* Return: void
 */
-void _push(stack_t **head, unsigned int line_number)
+void f_push(stack_t **head, unsigned int number)
 {
 	int n, j = o, flag = 0;
 
@@ -20,21 +20,17 @@ void _push(stack_t **head, unsigned int line_number)
 				flag = 1;
 		}
 		if (flag == 1)
-		{
-			fprintf(stderr, "L%d: usage: push integr\n", counter);
+		{ fprintf(stderr, "L%d: usage: push integr\n", counter);
 			fclose(bus.file);
 			free_stack(*head);
-			exit(EXIT_FAILURE);
-		}
+			exit(EXIT_FAILURE); }
 	}
 	else
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", counter);
+	{ fprintf(stderr, "L%d: usage: push integer\n", counter);
 		fclose(bus.file);
 		free(bus.content);
 		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
+		exit(EXIT_FAILURE); }
 	n = atoi(bus.arg);
 	if (bus.lifi == 0)
 		addnode(head, n);
@@ -43,15 +39,16 @@ void _push(stack_t **head, unsigned int line_number)
 }
 
 /**
-*_pall - prints all the values on the stack, starting from the top of the stack
-*@head: head of stack
-*@line_number: line number opcode occurs on
-*Return: void
+* f_pall - prints all the values on the stack,
+*  starting from the top of the stack
+* @head: head of stack
+* @number: line number opcode occurs on
+* Return: void
 */
-void _pall(stack_t **head, unsigned int line_number)
+void f_pall(stack_t **head, unsigned int number)
 {
 	stack_t *h;
-	(void)line_number;
+	(void)counter;
 
 	h = *head;
 	if (h == NULL)
@@ -65,12 +62,12 @@ void _pall(stack_t **head, unsigned int line_number)
 }
 
 /**
-*_pint - prints the value at the top of the stack, fbanl
-*@head: head of stack
-*@line_number: line number which opcode occurs on
-*Return: void
+* f_pint - prints the value at the top of the stack, fbanl
+* @head: head of stack
+* @number: line number which opcode occurs on
+* Return: void
 */
-void _pint(stack_t **head, unsigned int line_number)
+void f_pint(stack_t **head, unsigned int number)
 {
 	if (*head == NULL)
 	{
@@ -83,12 +80,12 @@ void _pint(stack_t **head, unsigned int line_number)
 }
 
 /**
-*_pop - removes the top element of the stack
-*@head: head of stack
-*@line_number: line number which opcode is found on
-*Return: void
+* f_pop - removes the top element of the stack
+* @head: head of stack
+* @counter: line number which opcode is found on
+* Return: void
 */
-void _pop(stack_t **head, unsigned int line_number)
+void f_pop(stack_t **head, unsigned int counter)
 {
 	stack_t *h;
 
@@ -105,12 +102,12 @@ void _pop(stack_t **head, unsigned int line_number)
 }
 
 /**
- *_swap - swaps the top two elements of the stack
- *@head: head of stack
- *@line_number: line number which the opcode occurs
- *Return: void
-*/
-void _swap(stack_t **head, unsigned int line_number)
+ * f_swap - swaps the top two elements of the stack
+ * @head: head of stack
+ * @counter: line number which the opcode occurs
+ * Return: void
+ */
+void f_swap(stack_t **head, unsigned int counter)
 {
 	stack_t *h;
 	int len = 0, aux;
